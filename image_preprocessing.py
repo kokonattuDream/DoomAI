@@ -12,7 +12,15 @@ class PreprocessImage(ObservationWrapper):
     """
     
     def __init__(self, env, height = 64, width = 64, grayscale = True, crop = lambda img: img):
+        """
+        Intialize the PreprocessImage
         
+        @param env: environment (Doom)
+        @param height: height of image, default = 64
+        @param width: width of image, default = 64
+        @param grayscale: black-white image
+        @param crop: crop image
+        """
         
         super(PreprocessImage, self).__init__(env)
         self.img_size = (height, width)
@@ -22,7 +30,11 @@ class PreprocessImage(ObservationWrapper):
         self.observation_space = Box(0.0, 1.0, [n_colors, height, width])
 
     def _observation(self, img):
+        """
+        Observe the image
         
+        @param img: input image
+        """
         img = self.crop(img)
         img = imresize(img, self.img_size)
         if self.grayscale:
